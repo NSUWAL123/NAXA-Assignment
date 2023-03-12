@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getServices } from "./actions";
 
 function App() {
+  const dispatch = useDispatch();
+  const services = useSelector(state => state.serviceReducer.services);
+
+  useEffect(() => {
+    dispatch(getServices());
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{services.map((service) => {
+        return (
+          <div>{service.title}</div>
+        )
+      })}</h1>
     </div>
   );
 }
